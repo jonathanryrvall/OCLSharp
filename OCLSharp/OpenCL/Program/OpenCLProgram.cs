@@ -5,7 +5,7 @@ using System.Text;
 namespace OCLSharp.OpenCL.Program
 {
     /// <summary>
-    /// A program consisting of one or more kernels
+    /// Base class for an OpenCL program
     /// </summary>
     public partial class OpenCLProgram
     {
@@ -17,7 +17,7 @@ namespace OCLSharp.OpenCL.Program
         /// Set program settings
         /// </summary>
         public void Initialize(int[] workGroupSize,
-                                       int[] ndRange)
+                               int[] ndRange)
         {
             //if (workGroupSize.Length != 3)
             //{

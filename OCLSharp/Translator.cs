@@ -96,8 +96,13 @@ namespace OCLSharp
             // Remove using directives at top of code
             //openCLCode = RemoveUsings(openCLCode);
 
-            foreach(string classCode in FindClasses(csCode))
+            foreach (string classCode in FindClasses(csCode))
             {
+                // Constant fields
+                foreach (string constantField in FindConstantFields(classCode))
+                {
+                    openCLCode += CleanConstantField(constantField) + "\r\n";
+                }
                 foreach (string nonKernelCode in FindNonKernels(classCode))
                 {
                     openCLCode += CleanMethod(nonKernelCode) + "\r\n";
@@ -106,9 +111,9 @@ namespace OCLSharp
                 {
                     openCLCode += CleanMethod(kernelCode) + "\r\n";
                 }
-                
+
             }
-           
+
             return openCLCode;
         }
 
@@ -127,18 +132,51 @@ namespace OCLSharp
             code = code.Replace("int[]", "int*");
             code = code.Replace("long[]", "long*");
 
+            code = code.Replace("(byte)", "(unsigned char)");
+
             // Remove WorkItemArgs
             code = code.Replace("WorkItemArgs args,", "");
-            code = code.Replace("args.GetGlobalID", "get_global_id");
-            code = code.Replace("args.GetLocalID", "get_local_id");
+            code = code.Replace("args.get_global_id", "get_global_id");
+            code = code.Replace("args.get_locall_id", "get_local_id");
 
 
             return code;
         }
 
-   
+        private string CleanConstantField(string code)
+        {
+            code = code.Replace("[Constant]", "__constant");
+         
 
-      
+
+            return code;
+        }
+
+        /// <summary>
+        /// Check if the code on this index is row comment or not
+        /// </summary>
+        private bool IsRowComment(int start, string code)
+        {
+            for (int i = start; i >= 0; i--)
+            {
+                // Row comment found, it is a comment!
+                if (code.Substring(i, 2) == "//")
+                {
+                    return true;
+                }
+
+                // Line break found, no comments here!
+                if (code[i]== '\n')
+                {
+                    return false;
+                }
+
+            }
+
+            // No comments found
+            return false;
+        }
+
 
         /// <summary>
         /// Returns all classes in a code
@@ -149,6 +187,12 @@ namespace OCLSharp
             {
                 if (code.Substring(i, 5) == "class")
                 {
+                    // Commented
+                    if (IsRowComment(i, code))
+                    {
+                        continue;
+                    }
+
                     string classCode = FindClass(code, i);
 
                     // Class found!
@@ -163,12 +207,44 @@ namespace OCLSharp
         /// <summary>
         /// Returns all classes in a code
         /// </summary>
+        private IEnumerable<string> FindConstantFields(string code)
+        {
+            for (int i = 0; i < code.Length - 10; i++)
+            {
+                if (code.Substring(i, 10) == "[Constant]")
+                {
+                    // Commented
+                    if (IsRowComment(i, code))
+                    {
+                        continue;
+                    }
+
+                    string fieldCode = FindConstantField(code, i);
+
+                    // Class found!
+                    if (!string.IsNullOrEmpty(fieldCode))
+                    {
+                        yield return fieldCode;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns all classes in a code
+        /// </summary>
         private IEnumerable<string> FindNonKernels(string code)
         {
             for (int i = 0; i < code.Length - 11; i++)
             {
                 if (code.Substring(i, 11) == "[NonKernel]")
                 {
+                    // Commented
+                    if (IsRowComment(i, code))
+                    {
+                        continue;
+                    }
+
                     string kernelCode = FindKernel(code, i);
 
                     // Class found!
@@ -189,6 +265,12 @@ namespace OCLSharp
             {
                 if (code.Substring(i, 8) == "[Kernel]")
                 {
+                    // Commented
+                    if (IsRowComment(i, code))
+                    {
+                        continue;
+                    }
+
                     string kernelCode = FindKernel(code, i);
 
                     // Class found!
@@ -214,7 +296,7 @@ namespace OCLSharp
                 // Find starting bracket
                 if (code[i] == '{')
                 {
-              
+
                     bracketBalance++;
                 }
 
@@ -231,6 +313,27 @@ namespace OCLSharp
             }
 
             return code.Substring(classStart, lastBracket + 1 - classStart);
+        }
+
+        /// <summary>
+        /// Find constant field
+        /// </summary>
+        private string FindConstantField(string code, int fieldStart)
+        {
+            int endIndex = 0;
+            
+            // Iterate through code until brackets found
+            for (int i = fieldStart; i < code.Length; i++)
+            {
+                // Find ending semicolon
+                if (code[i] == ';')
+                {
+                    endIndex = i + 1;
+                    break;
+                }
+            }
+
+            return code.Substring(fieldStart, endIndex - fieldStart);
         }
 
         /// <summary>
@@ -270,7 +373,7 @@ namespace OCLSharp
             return code.Substring(firstBracket, lastBracket - firstBracket);
         }
 
-       
+
         /// <summary>
         /// Split code into lines
         /// </summary>

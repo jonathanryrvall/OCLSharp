@@ -9,18 +9,26 @@ namespace OCLSharp
     /// </summary>
     public class WorkItemArgs
     {
+        public int[] ndRange;
         public int[] workGroupID;
         public int[] localID;
         public int[] globalID;
 
-        public WorkItemArgs(int[] workGroupID,
+        public WorkItemArgs(int[] ndRange,
+                            int[] workGroupID,
                             int[] localID,
                             int[] globalID)
         {
+            this.ndRange = ndRange;
             this.workGroupID = workGroupID;
             this.localID = localID;
             this.globalID = globalID;
 
+        }
+
+        public int get_global_size(int dim)
+        {
+            return ndRange[dim];
         }
 
         public int get_global_id(int dim)

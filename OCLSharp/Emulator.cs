@@ -5,11 +5,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace OCLSharp
 {
     /// <summary>
     /// Emulates C# code as if it was OpenCL
+    /// Note that this is VERY inefficient and slow and only meant for debugging purposes
     /// </summary>
     public class Emulator<TProgram> where TProgram : OpenCLProgram, new()
     {
@@ -34,7 +36,7 @@ namespace OCLSharp
             this.workGroupSize = PadDimArray(workGroupSize);
             this.ndRange = PadDimArray(ndRange);
 
-
+            // Calculate how many workgroups there are suppose to be
             CalculateWorkGroupCount();
 
         }
@@ -93,37 +95,41 @@ namespace OCLSharp
                                   TProgram program,
                                   object[] kernelArgs)
         {
-            List<Thread> threads = new List<Thread>();
+            List<Task> tasks = new List<Task>();
+
+            int maxThreads = workGroupSize[0] * workGroupSize[1] * workGroupSize[2];
+            maxThreads += 2;
+            ThreadPool.SetMaxThreads(maxThreads, maxThreads);
 
             // Start all work items in a work group
             foreach (WorkItemArgs workItemArgs in GetWorkItemArgs(workGroupID))
             {
                 WorkItemArgs workItemArgsC = workItemArgs;
 
-                // Create new thread
-                Thread thread = new Thread(() => StartWorkItem(workItemArgs,
+             
+
+                // Create new task
+                Task task = new Task(() => RunWorkItem(workItemArgs,
                                               kernelName,
                                               kernelArgs,
                                               program));
 
-                // Add thread to collection
-                threads.Add(thread);
+                // Add task to collection
+                tasks.Add(task);
 
-                // Start thread
-                thread.Start();
+                // Start task
+                task.Start();
             }
 
             // Wait for all threads to finish
-            foreach (Thread thread in threads)
-            {
-                thread.Join();
-            }
+            Task.WaitAll(tasks.ToArray());
+   
         }
 
         /// <summary>
         /// Start a work item
         /// </summary>
-        private void StartWorkItem(WorkItemArgs workItemArgs,
+        private void RunWorkItem(WorkItemArgs workItemArgs,
                                    string kernelName,
                                    object[] kernelArgs,
                                    TProgram program)
@@ -181,7 +187,8 @@ namespace OCLSharp
                         int[] localID = new int[] { x, y, z };
 
                         // Create new work item args
-                        yield return new WorkItemArgs(workGroupID,
+                        yield return new WorkItemArgs(ndRange,
+                            workGroupID,
                             localID,
                             globalID);
 

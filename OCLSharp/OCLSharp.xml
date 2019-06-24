@@ -4,6 +4,11 @@
         <name>OCLSharp</name>
     </assembly>
     <members>
+        <member name="T:OCLSharp.Attributes.ConstantAttribute">
+            <summary>
+            Marks a memory pointer as belonging to the __constant address space
+            </summary>
+        </member>
         <member name="T:OCLSharp.Attributes.GlobalAttribute">
             <summary>
             Marks a memory pointer as belonging to the __global address space
@@ -27,6 +32,7 @@
         <member name="T:OCLSharp.Emulator`1">
             <summary>
             Emulates C# code as if it was OpenCL
+            Note that this is VERY inefficient and slow and only meant for debugging purposes
             </summary>
         </member>
         <member name="M:OCLSharp.Emulator`1.#ctor(System.Int32[],System.Int32[])">
@@ -54,7 +60,7 @@
             Run a specific work group in a kernel on a program
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.StartWorkItem(OCLSharp.WorkItemArgs,System.String,System.Object[],`0)">
+        <member name="M:OCLSharp.Emulator`1.RunWorkItem(OCLSharp.WorkItemArgs,System.String,System.Object[],`0)">
             <summary>
             Start a work item
             </summary>
@@ -79,7 +85,7 @@
             OpenCL program
             </summary>
             <summary>
-            A program consisting of one or more kernels
+            Base class for an OpenCL program
             </summary>
         </member>
         <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.Initialize(System.Int32[],System.Int32[])">
@@ -179,7 +185,17 @@
             </summary>
             <returns>OpenCL code</returns>
         </member>
+        <member name="M:OCLSharp.Translator.IsRowComment(System.Int32,System.String)">
+            <summary>
+            Check if the code on this index is row comment or not
+            </summary>
+        </member>
         <member name="M:OCLSharp.Translator.FindClasses(System.String)">
+            <summary>
+            Returns all classes in a code
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translator.FindConstantFields(System.String)">
             <summary>
             Returns all classes in a code
             </summary>
@@ -197,6 +213,11 @@
         <member name="M:OCLSharp.Translator.FindKernel(System.String,System.Int32)">
             <summary>
             Find class!
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translator.FindConstantField(System.String,System.Int32)">
+            <summary>
+            Find constant field
             </summary>
         </member>
         <member name="M:OCLSharp.Translator.FindClass(System.String,System.Int32)">
