@@ -9,9 +9,14 @@ namespace OCLSharp.OpenCL.Program
     /// </summary>
     public partial class OpenCLProgram
     {
-        protected T acos<T>(T x) where T : struct
+        protected double acos(double x)
         {
-            return x;
+            return Math.Acos(x);
+        }
+
+        protected float acos(float x)
+        {
+            return (float)Math.Acos(x);
         }
 
         protected T acosh<T>(T x) where T : struct

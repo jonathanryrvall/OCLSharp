@@ -28,7 +28,7 @@ namespace OCLSharpExamples.Examples
         public void Run()
         {
             string csCode = File.ReadAllText("Kernels/VectorAddProgram.cs");
-            string openCLCode = new Translator(csCode).Translate();
+            string openCLCode = new OCLSharp.Translating.Translator(csCode).Translate();
             File.WriteAllText("Kernels/VectorAddProgram.cl", openCLCode);
         }
     }

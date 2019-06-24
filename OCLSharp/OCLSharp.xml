@@ -163,6 +163,58 @@
             <param name="dimindx">The dimindx.</param>
             <returns></returns>
         </member>
+        <member name="T:OCLSharp.Translating.ClassFinder">
+            <summary>
+            Find classes in a code file
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.ClassFinder.FindClass(System.String,System.Int32)">
+            <summary>
+            Find class!
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.ClassFinder.FindClasses(System.String)">
+            <summary>
+            Returns all classes in a code
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.NonKernelParser.GetNonKernelEnd(System.String,System.Int32,System.String@)">
+            <summary>
+            Find end of a non kernel
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.NonKernelParser.GetNonKernelStart(System.String,System.Int32)">
+            <summary>
+            Check if code at specific index is start of a non - kernel method
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.Translator.#ctor">
+            <summary>
+            Create an empty <see cref="T:OCLSharp.Translating.Translator"/>
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.Translator.#ctor(System.String)">
+            <summary>
+            Create a new <see cref="T:OCLSharp.Translating.Translator"/> from C# source code
+            </summary>
+            <param name="csCode">Code in C# language</param>
+        </member>
+        <member name="M:OCLSharp.Translating.Translator.Translate">
+            <summary>
+            Translates C# code to OpenCL
+            </summary>
+            <returns>OpenCL code</returns>
+        </member>
+        <member name="M:OCLSharp.Translating.Translator.GetLineCommentStart(System.String,System.Int32)">
+            <summary>
+            Check if code at specific index is start of a line comment
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.Translator.GetLineCommentEnd(System.String,System.Int32,System.String@)">
+            <summary>
+            Check if code at specific index is start of a line comment
+            </summary>
+        </member>
         <member name="T:OCLSharp.Translator">
             <summary>
             Translator that translated C# to OpenCL

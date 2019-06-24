@@ -37,10 +37,10 @@ namespace OCLSharpExamples.Examples
         public void Run()
         {
             // Emulator
-            RunEmulator();
+           // RunEmulator();
 
             // Actual OpenCL
-       //     RunOpenCL();
+            RunOpenCL();
 
 
 
