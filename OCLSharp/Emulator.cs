@@ -74,7 +74,9 @@ namespace OCLSharp
         {
             // Create new program
             TProgram program = new TProgram();
-            program.Initialize(null, null);
+            program.Initialize(workGroupSize, 
+                               workGroupCount, 
+                               ndRange);
 
             // Iterate through all workgroups and start them one by one
             foreach (int[] workGroupID in GetWorkGroupIDs())
@@ -188,6 +190,7 @@ namespace OCLSharp
 
                         // Create new work item args
                         yield return new WorkItemArgs(ndRange,
+                            workGroupSize,
                             workGroupID,
                             localID,
                             globalID);

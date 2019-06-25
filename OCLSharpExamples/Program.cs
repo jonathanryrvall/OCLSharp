@@ -18,7 +18,7 @@ namespace OCLSharpExamples
             foreach (IExample e in examples)
             {
                 int i = examples.IndexOf(e);
-                Console.WriteLine($"[{i}] {e.Description}");
+                Console.WriteLine($"[{i}] - {e.ToString()} - {e.Description}");
             }
 
             // Allow user to choose an example

@@ -54,9 +54,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Examples\Example1.cs" />
+    <Compile Include="ContextGenerator.cs" />
+    <Compile Include="Examples\BarrierExample.cs" />
     <Compile Include="Examples\EmulationExample.cs" />
     <Compile Include="Examples\IExample.cs" />
+    <Compile Include="Examples\LocalMemoryExample.cs" />
+    <Compile Include="Examples\SobelExampleEmulator.cs" />
+    <Compile Include="Examples\SobelExampleOpenCL.cs" />
+    <Compile Include="Kernels\BarrierDemoKernels.cs" />
+    <Compile Include="Kernels\SobelKernels.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Kernels\VectorAddProgram.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -72,6 +80,11 @@
       <Project>{FB712433-6BBB-44A5-9B17-A648F4ECD4E9}</Project>
       <Name>OCLSharp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\tucan.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

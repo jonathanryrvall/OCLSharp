@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace OCLSharp.OpenCL.Program
 {
@@ -9,7 +10,14 @@ namespace OCLSharp.OpenCL.Program
     /// </summary>
     public partial class OpenCLProgram
     {
-        //private int[] workGroupSize;
+        protected const int CLK_LOCAL_MEM_FENCE = 0;
+        protected const int CLK_GLOBAL_MEM_FENCE = 0;
+
+        private int[] workGroupSize;
+        private int[] workGroupCount;
+
+        private Barrier[,,] barriers;
+
         //private int[] ndRange;
         //private int[] workGroupCount;
 
@@ -17,18 +25,47 @@ namespace OCLSharp.OpenCL.Program
         /// Set program settings
         /// </summary>
         public void Initialize(int[] workGroupSize,
+                               int[] workGroupCount,
                                int[] ndRange)
         {
             //if (workGroupSize.Length != 3)
             //{
             //    throw new ArgumentException("Work group size Array must be 3")
             //}
-            //this.workGroupSize = workGroupSize;
-            //this.ndRange = ndRange;
+            this.workGroupSize = workGroupSize;
+            this.workGroupCount = workGroupCount;
+            // this.ndRange = ndRange;
 
-           // localMem = new Dictionary<string, object>[][][1];
+            // localMem = new Dictionary<string, object>[][][1];
 
+            InitBarriers();
+        }
 
+        /// <summary>
+        /// Initialize barriers
+        /// </summary>
+        private void InitBarriers()
+        {
+            // Create array
+            barriers = new Barrier[workGroupCount[0],
+                                   workGroupCount[1],
+                                   workGroupCount[2]];
+            // Calculate participants
+            int participants = workGroupSize[0] *
+                                   workGroupSize[1] *
+                                   workGroupSize[2];
+
+            // Init array items
+            for (int x = 0; x < workGroupCount[0]; x++)
+            {
+                for (int y = 0; y < workGroupCount[1]; y++)
+                {
+                    for (int z = 0; z < workGroupCount[2]; z++)
+                    {
+                        barriers[x, y, z] = new Barrier(participants);
+                    }
+                }
+            }
         }
 
         private struct WorkGroupKey
@@ -39,6 +76,17 @@ namespace OCLSharp.OpenCL.Program
         }
 
         private Dictionary<string, object>[][][] localMem;
+
+
+        /// <summary>
+        /// Barrier!
+        /// </summary>
+        protected void barrier(WorkItemArgs args, int fence)
+        {
+            barriers[args.workGroupID[0],
+                     args.workGroupID[1],
+                     args.workGroupID[2]].SignalAndWait();
+        }
 
         /// <summary>
         /// Sync local memory between work items

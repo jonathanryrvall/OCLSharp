@@ -1,15 +1,17 @@
-﻿using OCLSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OCLSharpExamples.Examples
 {
+
     /// <summary>
-    /// Example demonstrating a simple translation of code
+    /// Example demontrating local memory
     /// </summary>
-    public class Example1 : IExample
+    public class LocalMemoryExample : IExample
     {
         /// <summary>
         /// Returns description for this example
@@ -18,7 +20,7 @@ namespace OCLSharpExamples.Examples
         {
             get
             {
-                return "Example demonstrating a simple translation of code";
+                return "Example demonstrating local memory";
             }
         }
 

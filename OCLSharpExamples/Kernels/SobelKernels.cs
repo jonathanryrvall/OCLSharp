@@ -3,38 +3,17 @@ using OCLSharp.Attributes;
 using OCLSharp.OpenCL.Program;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OCLSharpExamples.Kernels
 {
-    public class VectorAddProgram : OpenCLProgram
+    /// <summary>
+    /// Sobel kernels
+    /// </summary>
+    public class SobelKernels : OpenCLProgram
     {
-
-        ///// <summary>
-        ///// Test of local memory
-        ///// </summary>
-        //[Kernel]
-        //public void ReverseTest(WorkItemArgs args, [Global] int[] a)
-        //{
-        //  //  int[] b = GetLocalMem(args, new int[10], "b");
-
-        //    //int i = args.GetGlobalID(0);
-        //    //c[i] = a[i] + b[i];
-        //}
-
-        ///// <summary>
-        ///// Perform vector addition
-        ///// </summary>
-        //[Kernel]
-        //public void VectorAdd(WorkItemArgs args,
-        //                               [Global] int[] a,
-        //                               [Global] int[] b,
-        //                               [Global] int[] c)
-        //{
-        //    int i = args.get_global_id(0);
-        //    c[i] = a[i] + b[i];
-        //}
-
         [NonKernel]
         private int GetGlobalIndex(int x, int y, int w)
         {
@@ -52,7 +31,7 @@ namespace OCLSharpExamples.Kernels
         /// Perform vector addition
         /// </summary>
         [Kernel]
-        public void Sobel(WorkItemArgs args,
+        public void SobelSimple(WorkItemArgs args,
                                        [Global] byte[] inputMem,
                                        [Global] byte[] outputMem,
                                        int width,
@@ -128,48 +107,6 @@ namespace OCLSharpExamples.Kernels
             outputMem[inputIndex + 1] = (byte)resGreen;
             outputMem[inputIndex + 2] = (byte)resRed;
 
-
-            // barrier(CLK_GLOBAL_MEM_FENCE);
         }
-
-        ///// <summary>
-        ///// Perform vector addition
-        ///// </summary>
-        //[Kernel]
-        //public void VectorAdd2D(WorkItemArgs args,
-        //                               [Global] int[] a,
-        //                               [Global] int[] b,
-        //                               [Global] int[] c)
-        //{
-        //    int x = args.get_global_id(0);
-        //    int y = args.get_global_id(1);
-        //    int w = args.get_global_size(0);
-        //    int i = (y * w) + x;
-
-        //    c[i] = a[i] + b[i];
-        //}
-
-        ///// <summary>
-        ///// Perform vector addition
-        ///// </summary>
-        //[Kernel]
-        //public void VectorSub(WorkItemArgs args,
-        //                                [Global] int[] a,
-        //                               [Global] int[] b,
-        //                               [Global] int[] c)
-        //{
-        //    int i = args.get_global_id(0);
-        //    c[i] = a[i] - b[i];
-
-        //}
-
-        ///// <summary>
-        ///// Perform vector addition
-        ///// </summary>
-        //[NonKernel]
-        //public int TestMethod(int a, int b, int c)
-        //{
-        //    return a + b + c;
-        //}
     }
 }

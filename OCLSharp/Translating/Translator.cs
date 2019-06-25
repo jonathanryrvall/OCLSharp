@@ -98,12 +98,5 @@ namespace OCLSharp.Translating
             return result;
         }
 
-
-
-
-
-
-
-
     }
 }

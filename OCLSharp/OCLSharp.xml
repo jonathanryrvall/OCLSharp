@@ -98,9 +98,19 @@
             Base class for an OpenCL program
             </summary>
         </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.Initialize(System.Int32[],System.Int32[])">
+        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.Initialize(System.Int32[],System.Int32[],System.Int32[])">
             <summary>
             Set program settings
+            </summary>
+        </member>
+        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.InitBarriers">
+            <summary>
+            Initialize barriers
+            </summary>
+        </member>
+        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.barrier(OCLSharp.WorkItemArgs,System.Int32)">
+            <summary>
+            Barrier!
             </summary>
         </member>
         <member name="T:OCLSharp.OpenCL.Program.OpenCLFunctions">
