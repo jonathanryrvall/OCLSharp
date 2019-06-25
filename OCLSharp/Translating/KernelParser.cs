@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace OCLSharp.Translating
 {
-    public class NonKernelParser
+
+
+    public class KernelParser
     {
         private string code;
 
-        public NonKernelParser(string code)
+        public KernelParser(string code)
         {
             this.code = code;
         }
 
         /// <summary>
-        /// Find end of a non kernel
+        /// Find end of a kernel
         /// </summary>
-        public static int GetNonKernelEnd(string code, int index, out string nonKernel)
+        public static int GetKernelEnd(string code, int index, out string kernel)
         {
             int bracketBalance = 0;
             int lastBracket = -1;
@@ -42,7 +45,7 @@ namespace OCLSharp.Translating
                 }
             }
 
-            nonKernel = code.Substring(index, lastBracket + 1 - index);
+            kernel = code.Substring(index, lastBracket + 1 - index);
 
             return lastBracket;
         }
@@ -51,21 +54,21 @@ namespace OCLSharp.Translating
         /// <summary>
         /// Check if code at specific index is start of a non - kernel method
         /// </summary>
-        public static bool GetNonKernelStart(string code, int index)
+        public static bool GetKernelStart(string code, int index)
         {
             // Out of range
-            if (index > code.Length - 20)
+            if (index > code.Length - 17)
             {
                 return false;
             }
 
 
             // Start of kernel
-            if (code.Substring(index, 11) == "[NonKernel]")
+            if (code.Substring(index, 8) == "[Kernel]")
             {
                 return true;
             }
-            if (code.Substring(index, 20) == "[NonKernelAttribute]")
+            if (code.Substring(index, 17) == "[KernelAttribute]")
             {
                 return true;
             }
@@ -81,7 +84,7 @@ namespace OCLSharp.Translating
         {
             // Remove tabs, newlines and extra spaces
             head = MethodParseHelpers.RemoveHeadSpaces(head);
-
+           
             // Remove WorkItemArgs
             head = head.Replace("WorkItemArgs args,", "");
 
@@ -89,13 +92,13 @@ namespace OCLSharp.Translating
             head = head.Replace("[Global]", "__global");
             head = head.Replace("[GlobalAttribute]", "__global");
 
-            head = head.Replace("[NonKernel]", "");
-            head = head.Replace("[NonKernelAttribute]", "");
+            head = head.Replace("[Kernel]", "__kernel");
+            head = head.Replace("[KernelAttribute]", "__kernel");
 
             // Remove access modifiers
             head = head.Replace(" public ", " ");
             head = head.Replace(" private ", " ");
-
+         
 
             // Add newline between arguments
             head = head.Replace(",", ",\n");

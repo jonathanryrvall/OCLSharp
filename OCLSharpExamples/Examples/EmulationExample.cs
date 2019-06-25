@@ -85,10 +85,10 @@ namespace OCLSharpExamples.Examples
         {
             // Translate
             string csCode = File.ReadAllText("Kernels/VectorAddProgram.cs");
-            string clCode = new Translator(csCode).Translate();
+            string clCode = new OCLSharp.Translating.Translator(csCode,false).Translate();
             File.WriteAllText("Kernels/VectorAddProgram.cl", clCode);
-            //string clCode = File.ReadAllText("Kernels/VectorAddProgram.cl");
-            return;
+           // string clCode = File.ReadAllText("Kernels/VectorAddProgram.cl");
+          //  return;
 
             Bitmap bitmap = (Bitmap)Bitmap.FromFile("elbird.jpg");
             BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);

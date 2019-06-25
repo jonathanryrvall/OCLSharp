@@ -8,6 +8,7 @@ namespace OCLSharp.Translating
     public class Translator
     {
         private string csCode;
+        private bool includeCommentsOutsideMethods;
 
         /// <summary>
         /// Create an empty <see cref="Translator"/>
@@ -18,9 +19,15 @@ namespace OCLSharp.Translating
         /// Create a new <see cref="Translator"/> from C# source code
         /// </summary>
         /// <param name="csCode">Code in C# language</param>
-        public Translator(string csCode)
+        /// <param name="includeCommentsOutsideMethods">Code that has been commented out outside of any method should be included</param>
+        public Translator(string csCode,
+                          bool includeCommentsOutsideMethods = false)
         {
-            this.csCode = csCode;
+         
+            // Use common newline
+            this.csCode = csCode.Replace("\r\n", "\n");
+
+            this.includeCommentsOutsideMethods = includeCommentsOutsideMethods;
         }
 
         /// <summary>
@@ -34,30 +41,54 @@ namespace OCLSharp.Translating
             // Step 1
             // Extract all code within all classes in the file
             string classExtractionResult = new ClassFinder(csCode).GetCombinedCode();
+            csCode = classExtractionResult;
+
 
             // Step 2 iterate through all code extracted
             for (int i = 0; i < csCode.Length; i++)
             {
                 // Start of line comment
-                if (GetLineCommentStart(csCode, i))
+                if (LineCommentParser.GetLineCommentStart(csCode, i))
                 {
                     // Get end of comment
-                    i = GetLineCommentEnd(csCode, i, out string lineComment);
+                    i = LineCommentParser.GetLineCommentEnd(csCode, i, out string lineComment);
 
-                    // Appent comment to result
-                    result += lineComment;
+                    // Append to result
+                    if (includeCommentsOutsideMethods)
+                    {
+                        result += lineComment;
+                    }
                 }
 
                 // Start of non kernel method
                 if (NonKernelParser.GetNonKernelStart(csCode, i))
                 {
-                    // Get end of comment
+                    // Get end of non kernel
                     i = NonKernelParser.GetNonKernelEnd(csCode, i, out string nonKernel);
 
-                    // Appent comment to result
-                    result += nonKernel + "\n\n";
+                    // Append to result
+                    result += new NonKernelParser(nonKernel).Translate() + "\n\n";
                 }
 
+                // Start of kernel method
+                if (KernelParser.GetKernelStart(csCode, i))
+                {
+                    // Get end of kernel
+                    i = KernelParser.GetKernelEnd(csCode, i, out string kernel);
+
+                    // Append to result
+                    result += new KernelParser(kernel).Translate() + "\n\n";
+                }
+
+                // Start of constant field
+                if (ConstantFieldParser.GetConstantFieldStart(csCode, i))
+                {
+                    // Get end of constant field
+                    i = ConstantFieldParser.GetConstantFieldEnd(csCode, i, out string constantField);
+
+                    // Append to result
+                    result += new ConstantFieldParser(constantField).Translate() + "\n\n";
+                }
 
             }
 
@@ -67,44 +98,9 @@ namespace OCLSharp.Translating
             return result;
         }
 
-      
 
-        /// <summary>
-        /// Check if code at specific index is start of a line comment
-        /// </summary>
-        private bool GetLineCommentStart(string code, int index)
-        {
-            // Out of range
-            if (index > code.Length - 2)
-            {
-                return false;
-            }
 
-            // Check if start of line comment
-            return code.Substring(index, 2) == "//";
-        }
 
-        /// <summary>
-        /// Check if code at specific index is start of a line comment
-        /// </summary>
-        private int GetLineCommentEnd(string code, int index, out string lineComment)
-        {
-            // Search for newline
-            for (int i = index; i < code.Length; i++)
-            {
-                // Check if character is newline
-                if (code[i] == '\n')
-                {
-                    lineComment = code.Substring(index, i - index);
-                    return i;
-                }
-            }
-
-            // No end found
-            lineComment = code.Substring(index, code.Length - index);
-
-            return code.Length;
-        }
 
 
 

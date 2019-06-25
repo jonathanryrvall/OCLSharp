@@ -29,6 +29,16 @@
             Marks a method as an OpenCL Kernel
             </summary>
         </member>
+        <member name="T:OCLSharp.Attributes.ReadOnlyAttribute">
+            <summary>
+            Marks a memory pointer as read only
+            </summary>
+        </member>
+        <member name="T:OCLSharp.Attributes.WriteOnlyAttribute">
+            <summary>
+            Marks a memory pointer as write only
+            </summary>
+        </member>
         <member name="T:OCLSharp.Emulator`1">
             <summary>
             Emulates C# code as if it was OpenCL
@@ -178,6 +188,71 @@
             Returns all classes in a code
             </summary>
         </member>
+        <member name="M:OCLSharp.Translating.ConstantFieldParser.GetConstantFieldEnd(System.String,System.Int32,System.String@)">
+            <summary>
+            Find end of a constant field
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.ConstantFieldParser.GetConstantFieldStart(System.String,System.Int32)">
+            <summary>
+            Check if code at specific index is start of a non - kernel method
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.ConstantFieldParser.Translate">
+            <summary>
+            Translate C# cernel to OpenCL kernel
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.GetKernelEnd(System.String,System.Int32,System.String@)">
+            <summary>
+            Find end of a kernel
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.GetKernelStart(System.String,System.Int32)">
+            <summary>
+            Check if code at specific index is start of a non - kernel method
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.TranslateHead(System.String)">
+            <summary>
+            Translate head part of kernel
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.TranslateBody(System.String)">
+            <summary>
+            Translate body of kernel
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.Translate">
+            <summary>
+            Translate C# cernel to OpenCL kernel
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.LineCommentParser.GetLineCommentStart(System.String,System.Int32)">
+            <summary>
+            Check if code at specific index is start of a line comment
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.LineCommentParser.GetLineCommentEnd(System.String,System.Int32,System.String@)">
+            <summary>
+            Check if code at specific index is start of a line comment
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.MethodParseHelpers.Decaptitate(System.String)">
+            <summary>
+            Separate method head from body
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.MethodParseHelpers.RemoveHeadSpaces(System.String)">
+            <summary>
+            Removes tabs, newlines and extra spaces from head of method
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.MethodParseHelpers.ExtractBodyContent(System.String)">
+            <summary>
+            Extract content withing method body
+            </summary>
+        </member>
         <member name="M:OCLSharp.Translating.NonKernelParser.GetNonKernelEnd(System.String,System.Int32,System.String@)">
             <summary>
             Find end of a non kernel
@@ -188,32 +263,38 @@
             Check if code at specific index is start of a non - kernel method
             </summary>
         </member>
+        <member name="M:OCLSharp.Translating.NonKernelParser.TranslateHead(System.String)">
+            <summary>
+            Translate head part of kernel
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.NonKernelParser.TranslateBody(System.String)">
+            <summary>
+            Translate body of kernel
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.NonKernelParser.Translate">
+            <summary>
+            Translate C# cernel to OpenCL kernel
+            </summary>
+        </member>
         <member name="M:OCLSharp.Translating.Translator.#ctor">
             <summary>
             Create an empty <see cref="T:OCLSharp.Translating.Translator"/>
             </summary>
         </member>
-        <member name="M:OCLSharp.Translating.Translator.#ctor(System.String)">
+        <member name="M:OCLSharp.Translating.Translator.#ctor(System.String,System.Boolean)">
             <summary>
             Create a new <see cref="T:OCLSharp.Translating.Translator"/> from C# source code
             </summary>
             <param name="csCode">Code in C# language</param>
+            <param name="includeCommentsOutsideMethods">Code that has been commented out outside of any method should be included</param>
         </member>
         <member name="M:OCLSharp.Translating.Translator.Translate">
             <summary>
             Translates C# code to OpenCL
             </summary>
             <returns>OpenCL code</returns>
-        </member>
-        <member name="M:OCLSharp.Translating.Translator.GetLineCommentStart(System.String,System.Int32)">
-            <summary>
-            Check if code at specific index is start of a line comment
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translating.Translator.GetLineCommentEnd(System.String,System.Int32,System.String@)">
-            <summary>
-            Check if code at specific index is start of a line comment
-            </summary>
         </member>
         <member name="T:OCLSharp.Translator">
             <summary>

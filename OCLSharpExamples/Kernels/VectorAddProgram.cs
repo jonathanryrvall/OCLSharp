@@ -9,7 +9,7 @@ namespace OCLSharpExamples.Kernels
 {
     public class VectorAddProgram : OpenCLProgram
     {
-     
+
         ///// <summary>
         ///// Test of local memory
         ///// </summary>
@@ -17,7 +17,7 @@ namespace OCLSharpExamples.Kernels
         //public void ReverseTest(WorkItemArgs args, [Global] int[] a)
         //{
         //  //  int[] b = GetLocalMem(args, new int[10], "b");
-            
+
         //    //int i = args.GetGlobalID(0);
         //    //c[i] = a[i] + b[i];
         //}
@@ -35,12 +35,14 @@ namespace OCLSharpExamples.Kernels
         //    c[i] = a[i] + b[i];
         //}
 
-        [NonKernel] int GetGlobalIndex(int x, int y, int w)
+        [NonKernel]
+        private int GetGlobalIndex(int x, int y, int w)
         {
             return ((y * w) + x) * 3;
         }
 
-        [Constant] int[] sobelMatrix = { -2, -1, 0, 1 , 2,
+        [Constant]
+        private int[] sobelMatrix = { -2, -1, 0, 1 , 2,
                     -2, -1, 0, 1 , 2,
                     -4, -2, 0, 2 , 4,
                     -2, -1, 0, 1 , 2,
@@ -127,7 +129,7 @@ namespace OCLSharpExamples.Kernels
             outputMem[inputIndex + 2] = (byte)resRed;
 
 
-           // barrier(CLK_LOCAL_MEM_FENCE);
+            // barrier(CLK_LOCAL_MEM_FENCE);
         }
 
         ///// <summary>
@@ -158,7 +160,7 @@ namespace OCLSharpExamples.Kernels
         //{
         //    int i = args.get_global_id(0);
         //    c[i] = a[i] - b[i];
-            
+
         //}
 
         ///// <summary>
