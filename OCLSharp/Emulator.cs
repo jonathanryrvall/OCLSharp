@@ -190,6 +190,7 @@ namespace OCLSharp
 
                         // Create new work item args
                         yield return new WorkItemArgs(ndRange,
+                            workGroupCount,
                             workGroupSize,
                             workGroupID,
                             localID,

@@ -4,13 +4,7 @@ using System.Text;
 
 namespace OCLSharp.OpenCL.DataTypes
 {
-    public struct size_t
-    {
-        public static implicit operator size_t(uint d)
-        {
-            return new size_t();
-        }
-    }
+    
 
     public struct ptrdiff_t
     {

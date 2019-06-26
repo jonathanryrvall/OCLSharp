@@ -150,7 +150,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.get_global_size(System.Int32)">
+        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.{get; set;}(System.Int32)">
             <summary>
             Number of global work items
             </summary>
@@ -393,7 +393,7 @@
             Arguments for work items, used only for emulation
             </summary>
         </member>
-        <member name="M:OCLSharp.WorkItemArgs.get_global_size(System.Int32)">
+        <member name="M:OCLSharp.WorkItemArgs.{get; set;}(System.Int32)">
             <summary>
             Get size of entire work area
             </summary>

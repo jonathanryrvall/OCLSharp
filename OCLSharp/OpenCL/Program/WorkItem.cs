@@ -10,46 +10,11 @@ namespace OCLSharp.OpenCL.Program
     /// <typeparam name="T"></typeparam>
     public partial class OpenCLFunctions
     {
-        /// <summary>
-        /// Global work item ID value
-        /// </summary>
-        /// <param name="dimindx">The dimindx.</param>
-        /// <returns></returns>
-        public int get_global_id(int dimindx) { return 0; }
+       
 
-        /// <summary>
-        /// Number of dimensions in use
-        /// </summary>
-        /// <returns></returns>
-        public uint get_work_dim() { return 0; }
+    
 
-        /// <summary>
-        /// Number of global work items
-        /// </summary>
-        /// <param name="dimindx">The dimindx.</param>
-        /// <returns></returns>
-        public int get_global_size(int dimindx) { return 0; }
 
-        /// <summary>
-        /// Local work item ID
-        /// </summary>
-        /// <param name="dimindx">The dimindx.</param>
-        /// <returns></returns>
-        public int get_local_id(int dimindx) { return 0; }
-
-        /// <summary>
-        /// Number of local work items
-        /// </summary>
-        /// <param name="dimindx">The dimindx.</param>
-        /// <returns></returns>
-        public int get_local_size(int dimindx) { return 0; }
-
-        /// <summary>
-        /// Number of work groups
-        /// </summary>
-        /// <param name="dimindx">The dimindx.</param>
-        /// <returns></returns>
-        public int get_num_groups(int dimindx) { return 0; }
 
         /// <summary>
         /// Work group ID

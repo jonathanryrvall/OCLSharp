@@ -101,6 +101,9 @@ namespace OCLSharp.Translating
             head = head.Replace("[WriteOnly]", "__write_only");
             head = head.Replace("[WriteOnlyAttribute]", "__write_only");
 
+            head = head.Replace("[ReadWrite]", "__write_only");
+            head = head.Replace("[ReadWriteAttribute]", "__read_write");
+
 
             // Remove access modifiers
             head = head.Replace(" public ", " ");
@@ -128,10 +131,12 @@ namespace OCLSharp.Translating
             string bodyContent = MethodParseHelpers.ExtractBodyContent(body);
 
             bodyContent = bodyContent.Replace("args.get_global_id", "get_global_id");
+            bodyContent = bodyContent.Replace("args.get_global_size", "get_global_size");
+
             bodyContent = bodyContent.Replace("args.get_local_id", "get_local_id");
             bodyContent = bodyContent.Replace("args.get_local_size", "get_local_size");
             bodyContent = bodyContent.Replace("(byte)", "(unsigned char)");
-
+            
             // Barriers
             bodyContent = bodyContent.Replace("barrier(args,", "barrier(");
 
