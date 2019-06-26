@@ -108,9 +108,19 @@
             Initialize barriers
             </summary>
         </member>
+        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.InitLocalMemory">
+            <summary>
+            Initialize local memory dictionary
+            </summary>
+        </member>
         <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.barrier(OCLSharp.WorkItemArgs,System.Int32)">
             <summary>
             Barrier!
+            </summary>
+        </member>
+        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.GetLocalMem``1(OCLSharp.WorkItemArgs,``0,System.String)">
+            <summary>
+            Sync local memory between work items
             </summary>
         </member>
         <member name="T:OCLSharp.OpenCL.Program.OpenCLFunctions">

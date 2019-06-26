@@ -95,6 +95,12 @@ namespace OCLSharp.Translating
             head = head.Replace("[Kernel]", "__kernel");
             head = head.Replace("[KernelAttribute]", "__kernel");
 
+            head = head.Replace("[ReadOnly]", "__read_only");
+            head = head.Replace("[ReadOnlyAttribute]", "__read_only");
+
+            head = head.Replace("[WriteOnly]", "__write_only");
+            head = head.Replace("[WriteOnlyAttribute]", "__write_only");
+
             // Remove access modifiers
             head = head.Replace(" public ", " ");
             head = head.Replace(" private ", " ");

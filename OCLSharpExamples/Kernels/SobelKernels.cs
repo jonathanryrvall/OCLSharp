@@ -32,8 +32,8 @@ namespace OCLSharpExamples.Kernels
         /// </summary>
         [Kernel]
         public void SobelSimple(WorkItemArgs args,
-                                       [Global] byte[] inputMem,
-                                       [Global] byte[] outputMem,
+                                       [Global] [ReadOnly] byte[] inputMem,
+                                       [Global] [WriteOnly] byte[] outputMem,
                                        int width,
                                        int height)
         {

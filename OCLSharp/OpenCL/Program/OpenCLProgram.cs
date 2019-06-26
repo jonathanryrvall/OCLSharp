@@ -17,6 +17,7 @@ namespace OCLSharp.OpenCL.Program
         private int[] workGroupCount;
 
         private Barrier[,,] barriers;
+        private Dictionary<string, object>[,,] localMemory;
 
         //private int[] ndRange;
         //private int[] workGroupCount;
@@ -36,7 +37,7 @@ namespace OCLSharp.OpenCL.Program
             this.workGroupCount = workGroupCount;
             // this.ndRange = ndRange;
 
-            // localMem = new Dictionary<string, object>[][][1];
+            InitLocalMemory();
 
             InitBarriers();
         }
@@ -68,14 +69,28 @@ namespace OCLSharp.OpenCL.Program
             }
         }
 
-        private struct WorkGroupKey
+        /// <summary>
+        /// Initialize local memory dictionary
+        /// </summary>
+        private void InitLocalMemory()
         {
-            public int X;
-            public int Y;
-            public int Z;
+            // Create array
+            localMemory = new Dictionary<string, object>[workGroupCount[0],
+                                                         workGroupCount[1],
+                                                         workGroupCount[2]];
+         
+            // Init array items
+            for (int x = 0; x < workGroupCount[0]; x++)
+            {
+                for (int y = 0; y < workGroupCount[1]; y++)
+                {
+                    for (int z = 0; z < workGroupCount[2]; z++)
+                    {
+                        localMemory[x, y, z] = new Dictionary<string, object>();
+                    }
+                }
+            }
         }
-
-        private Dictionary<string, object>[][][] localMem;
 
 
         /// <summary>
@@ -91,27 +106,25 @@ namespace OCLSharp.OpenCL.Program
         /// <summary>
         /// Sync local memory between work items
         /// </summary>
-        //protected T GetLocalMem<T>(WorkItemArgs args, T def, string tag) 
-        //{
-        //    WorkGroupKey workGroupKey = new WorkGroupKey();
-        //    workGroupKey.X = args.workGroupID[0];
-        //    workGroupKey.Y = args.workGroupID[1];
-        //    workGroupKey.Z = args.workGroupID[2];
+        protected T GetLocalMem<T>(WorkItemArgs args, T def, string tag)
+        {
+            // Lock memory dictionary
+            lock (localMemory)
+            {
+                var dictionary = localMemory[args.workGroupID[0],
+                                             args.workGroupID[1],
+                                             args.workGroupID[2]];
 
-        //    // Lock memory dictionary
-        //    lock (localMem)
-        //    {
-        //        // Add memory to dictionary if it does not exist
-        //        if (!localMem.ContainsKey(workGroupKey))
-        //        {
-        //            Dictionary<string, object> tagDictionary
-        //            localMem.Add(tag, def);
-        //        }
+                // Add memory to dictionary if it does not exist
+                if (!dictionary.ContainsKey(tag))
+                {
+                    dictionary.Add(tag, def);
+                }
 
-        //        // Memory already exist in dictionary
-        //        return (T)localMem[tag];
-        //    }
-        //}
+                // Memory already exist in dictionary
+                return (T)dictionary[tag];
+            }
+        }
 
 
     }

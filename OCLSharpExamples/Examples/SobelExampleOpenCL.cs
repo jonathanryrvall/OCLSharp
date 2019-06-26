@@ -72,8 +72,6 @@ namespace OCLSharpExamples.Examples
                                 Bitmap bitmap,
                                 byte[] pixels)
         {
-          
-
            
 
             int width = bitmap.Width;
