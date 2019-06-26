@@ -24,6 +24,7 @@ namespace OCLSharpExamples
             // Allow user to choose an example
             int exampleIndex = int.Parse(Console.ReadLine());
             IExample example = examples[exampleIndex];
+            Console.Clear();
             example.Run();
 
 

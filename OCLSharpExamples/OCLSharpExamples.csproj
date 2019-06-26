@@ -61,7 +61,9 @@
     <Compile Include="Examples\LocalMemoryExample.cs" />
     <Compile Include="Examples\SobelExampleEmulator.cs" />
     <Compile Include="Examples\SobelExampleOpenCL.cs" />
-    <Compile Include="Kernels\BarrierDemoKernels.cs" />
+    <Compile Include="Kernels\BarrierDemoKernels.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Kernels\LocalMemoryDemoKernels.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

@@ -23,7 +23,7 @@ namespace OCLSharpExamples.Kernels
         {
             // Get workgroup size and local id
             int workGroupSize = args.get_local_size(0);
-            int localID = args.GetLocalID(0);
+            int localID = args.get_local_id(0);
             int globalID = args.get_global_id(0);
 
             // Get index to read from and also store the value in temporary variable

@@ -393,5 +393,25 @@
             Arguments for work items, used only for emulation
             </summary>
         </member>
+        <member name="M:OCLSharp.WorkItemArgs.get_global_size(System.Int32)">
+            <summary>
+            Get size of entire work area
+            </summary>
+        </member>
+        <member name="M:OCLSharp.WorkItemArgs.get_local_size(System.Int32)">
+            <summary>
+            Get size of workgroup
+            </summary>
+        </member>
+        <member name="M:OCLSharp.WorkItemArgs.get_global_id(System.Int32)">
+            <summary>
+            Get workitem id withing entire work area
+            </summary>
+        </member>
+        <member name="M:OCLSharp.WorkItemArgs.get_local_id(System.Int32)">
+            <summary>
+            Get workitem id within workgroup
+            </summary>
+        </member>
     </members>
 </doc>

@@ -134,6 +134,8 @@ namespace OCLSharp
 
             code = code.Replace("(byte)", "(unsigned char)");
 
+           
+
             // Remove WorkItemArgs
             code = code.Replace("WorkItemArgs args,", "");
             code = code.Replace("args.get_global_id", "get_global_id");

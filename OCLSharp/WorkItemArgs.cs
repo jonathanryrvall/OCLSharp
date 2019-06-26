@@ -29,22 +29,34 @@ namespace OCLSharp
 
         }
 
+        /// <summary>
+        /// Get size of entire work area
+        /// </summary>
         public int get_global_size(int dim)
         {
             return ndRange[dim];
         }
 
+        /// <summary>
+        /// Get size of workgroup
+        /// </summary>
         public int get_local_size(int dim)
         {
             return workGroupSize[dim];
         }
 
+        /// <summary>
+        /// Get workitem id withing entire work area
+        /// </summary>
         public int get_global_id(int dim)
         {
             return globalID[dim];
         }
 
-        public int GetLocalID(int dim)
+        /// <summary>
+        /// Get workitem id within workgroup
+        /// </summary>
+        public int get_local_id(int dim)
         {
             return localID[dim];
         }
