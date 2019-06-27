@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cloo, Version=0.9.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -58,7 +60,9 @@
     <Compile Include="Examples\BarrierExample.cs" />
     <Compile Include="Examples\DatatypesExample.cs" />
     <Compile Include="Examples\IExample.cs" />
-    <Compile Include="Examples\LocalMemoryExample.cs" />
+    <Compile Include="Examples\LocalMemoryExample.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Examples\SobelExampleEmulator.cs" />
     <Compile Include="Examples\SobelExampleOpenCL.cs" />
     <Compile Include="Kernels\BarrierDemoKernels.cs">

@@ -15,8 +15,10 @@ namespace OCLSharpExamples.Kernels
     /// <summary>
     /// Kernels demonstrating the use of local memory
     /// </summary>
-    public class LocalMemoryDemoKernels : OpenCLProgram
+    public unsafe class LocalMemoryDemoKernels : OpenCLProgram
     {
+
+     
         /// <summary>
         /// Reverse data within work group
         /// </summary>
@@ -24,18 +26,28 @@ namespace OCLSharpExamples.Kernels
         public void ReverseWorkGroupData(WorkItemArgs args,
                                          [Global] int[] data)
         {
-            // Get workgroup size and local id
+            // The use of local memory for this operation is unneccesary and also inefficient
+            // 
+
+            // Get workgroup size and ids
             size_t workGroupSize = args.get_local_size(0);
             size_t localID = args.get_local_id(0);
             size_t globalID = args.get_global_id(0);
 
-            
-            int[] localMemory = GetLocalMem(args, new int[8], "testTag");
-
-            localMemory[localID] = data[globalID];
-
+            // Calculate local index
             size_t swapIndex = workGroupSize - 1 - localID;
 
+
+            int[] localMemory = GetLocalMem(args, new int[8], "testTag");
+            // Local memory declaration
+            // Translates to
+            // __local int localMemory[8];
+
+            // Copy from global to local memory
+            localMemory[localID] = data[globalID];
+
+        
+            
 
             // Wait for all workitems to reach this point
             barrier(args, CLK_GLOBAL_MEM_FENCE);

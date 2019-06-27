@@ -77,6 +77,7 @@ namespace OCLSharp.Translating
             return false;
         }
 
+
         /// <summary>
         /// Translate head part of kernel
         /// </summary>
@@ -84,7 +85,7 @@ namespace OCLSharp.Translating
         {
             // Remove tabs, newlines and extra spaces
             head = MethodParseHelpers.RemoveHeadSpaces(head);
-           
+
             // Remove WorkItemArgs
             head = head.Replace("WorkItemArgs args,", "");
 
@@ -105,10 +106,12 @@ namespace OCLSharp.Translating
             head = head.Replace("[ReadWriteAttribute]", "__read_write");
 
 
+
+
             // Remove access modifiers
             head = head.Replace(" public ", " ");
             head = head.Replace(" private ", " ");
-         
+
 
             // Add newline between arguments
             head = head.Replace(",", ",\n");
@@ -123,25 +126,134 @@ namespace OCLSharp.Translating
         }
 
         /// <summary>
+        /// Count how many "blank characters" there are at the beginning of a string
+        /// </summary>
+        private int CountLeadingBlankCharacters(string str)
+        {
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (str[i] != ' ' &&
+                    str[i] != '\n')
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Translate local memory declaration within kernel body
+        /// </summary>
+        private string TranslateLocalMemoryWithinBody(string body)
+        {
+            while (body.Contains("GetLocalMem"))
+            {
+                int localMemIndex = body.IndexOf("GetLocalMem");
+                int startIndex = FindLocalMemStart(localMemIndex, body);
+                int endIndex = FindLocalMemEnd(localMemIndex, body);
+
+                string localMemString = body.Substring(startIndex, endIndex + 1 - startIndex);
+
+                int leadingBlanks = CountLeadingBlankCharacters(localMemString);
+                startIndex += leadingBlanks;
+                localMemString = body.Substring(startIndex, endIndex + 1 - startIndex);
+
+                string newLocalMemString = TranslateLocalMemoryDeclaration(localMemString);
+                // Remove old declaration
+                body = body.Remove(startIndex, endIndex + 1 - startIndex);
+
+                // Insert new translated declaration
+                body = body.Insert(startIndex, newLocalMemString);
+
+            }
+
+            return body;
+        }
+
+        /// <summary>
+        /// Translate declaration of local memory
+        /// </summary>
+        private string TranslateLocalMemoryDeclaration(string declaration)
+        {
+            declaration = declaration.Replace(" ", "");
+
+            int getMemIndex = declaration.IndexOf("GetLocalMem(args,new");
+
+            int fullDataTypeStartIndex = getMemIndex + 20;
+            int fullDataTypeEndIndex = declaration.LastIndexOf(",");
+            int nameStartIndex = declaration.IndexOf("]") + 1;
+
+            string name = declaration.Substring(nameStartIndex, getMemIndex - 1 - nameStartIndex);
+            string fullDataType = declaration.Substring(fullDataTypeStartIndex, fullDataTypeEndIndex - fullDataTypeStartIndex);
+            string dataType = fullDataType.Substring(0, fullDataType.IndexOf("["));
+
+            int dataLengthStart = fullDataType.IndexOf("[");
+            int dataLengthEnd = fullDataType.IndexOf("]");
+
+            string dataLength = fullDataType.Substring(dataLengthStart + 1, dataLengthEnd - 1 - dataLengthStart);
+
+            return $"__local {dataType} {name}[{dataLength}];";
+        }
+
+        /// <summary>
+        /// Find start of local memory declaration within kernel body
+        /// </summary>
+        private int FindLocalMemEnd(int refPoint, string body)
+        {
+            for (int i = refPoint; i < code.Length; i++)
+            {
+                if (body[i] == ';')
+                {
+                    return i;
+                }
+
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Find end of local memory declaration within kernel body
+        /// </summary>
+        private int FindLocalMemStart(int refPoint, string body)
+        {
+            for (int i = refPoint; i >= 0; i--)
+            {
+                if (body[i] == ';' ||
+                    body[i] == '{' ||
+                    body[i] == '}')
+                {
+                    return i + 1;
+                }
+
+            }
+
+            return 0;
+        }
+
+        /// <summary>
         /// Translate body of kernel
         /// </summary>
         private string TranslateBody(string body)
         {
             // Remove extra indentations
-            string bodyContent = MethodParseHelpers.ExtractBodyContent(body);
+            body = MethodParseHelpers.ExtractBodyContent(body);
 
-            bodyContent = bodyContent.Replace("args.get_global_id", "get_global_id");
-            bodyContent = bodyContent.Replace("args.get_global_size", "get_global_size");
+            body = body.Replace("args.get_global_id", "get_global_id");
+            body = body.Replace("args.get_global_size", "get_global_size");
 
-            bodyContent = bodyContent.Replace("args.get_local_id", "get_local_id");
-            bodyContent = bodyContent.Replace("args.get_local_size", "get_local_size");
-            bodyContent = bodyContent.Replace("(byte)", "(unsigned char)");
-            
+            body = body.Replace("args.get_local_id", "get_local_id");
+            body = body.Replace("args.get_local_size", "get_local_size");
+            body = body.Replace("(byte)", "(unsigned char)");
+
+            // Local memory declared within body
+            body = TranslateLocalMemoryWithinBody(body);
+
             // Barriers
-            bodyContent = bodyContent.Replace("barrier(args,", "barrier(");
+            body = body.Replace("barrier(args,", "barrier(");
 
 
-            return "{\n" + bodyContent + "\n}";
+            return "{\n" + body + "\n}";
         }
 
         /// <summary>

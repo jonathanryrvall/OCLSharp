@@ -239,6 +239,31 @@
             Translate head part of kernel
             </summary>
         </member>
+        <member name="M:OCLSharp.Translating.KernelParser.CountLeadingBlankCharacters(System.String)">
+            <summary>
+            Count how many "blank characters" there are at the beginning of a string
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.TranslateLocalMemoryWithinBody(System.String)">
+            <summary>
+            Translate local memory declaration within kernel body
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.TranslateLocalMemoryDeclaration(System.String)">
+            <summary>
+            Translate declaration of local memory
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.FindLocalMemEnd(System.Int32,System.String)">
+            <summary>
+            Find start of local memory declaration within kernel body
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Translating.KernelParser.FindLocalMemStart(System.Int32,System.String)">
+            <summary>
+            Find end of local memory declaration within kernel body
+            </summary>
+        </member>
         <member name="M:OCLSharp.Translating.KernelParser.TranslateBody(System.String)">
             <summary>
             Translate body of kernel
