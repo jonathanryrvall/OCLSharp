@@ -14,7 +14,7 @@ namespace OCLSharpExamples.Kernels
     /// <summary>
     /// Some kernels demonstrating the use of barriers
     /// </summary>
-    public class BarrierDemoKernels : OpenCLProgram
+    public unsafe class BarrierDemoKernels : OpenCLProgram
     {
         /// <summary>
         /// Reverse data within work group
