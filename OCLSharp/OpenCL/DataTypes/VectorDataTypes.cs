@@ -50,13 +50,7 @@ namespace OCLSharp.OpenCL.DataTypes
         }
     }
 
-    public struct int2
-    {
-        public static implicit operator int2((uint, uint) d)
-        {
-            return new int2();
-        }
-    }
+  
 
     public struct int3
     {
@@ -170,13 +164,13 @@ namespace OCLSharp.OpenCL.DataTypes
         }
     }
 
-    public struct float2
-    {
-        public static implicit operator float2((float, float) d)
-        {
-            return new float2();
-        }
-    }
+    //public struct float2
+    //{
+    //    public static implicit operator float2((float, float) d)
+    //    {
+    //        return new float2();
+    //    }
+    //}
 
     public struct float3
     {

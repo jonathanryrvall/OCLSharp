@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace OCLSharp
+namespace OCLSharp.Emulation
 {
     /// <summary>
     /// Emulates C# code as if it was OpenCL

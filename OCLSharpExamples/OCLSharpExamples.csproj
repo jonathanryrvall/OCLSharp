@@ -56,12 +56,15 @@
   <ItemGroup>
     <Compile Include="ContextGenerator.cs" />
     <Compile Include="Examples\BarrierExample.cs" />
-    <Compile Include="Examples\EmulationExample.cs" />
+    <Compile Include="Examples\DatatypesExample.cs" />
     <Compile Include="Examples\IExample.cs" />
     <Compile Include="Examples\LocalMemoryExample.cs" />
     <Compile Include="Examples\SobelExampleEmulator.cs" />
     <Compile Include="Examples\SobelExampleOpenCL.cs" />
     <Compile Include="Kernels\BarrierDemoKernels.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Kernels\DataTypesDemoKernel.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Kernels\LocalMemoryDemoKernels.cs">

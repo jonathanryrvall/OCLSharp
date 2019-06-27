@@ -1,5 +1,6 @@
 ﻿using Cloo;
 using OCLSharp;
+using OCLSharp.Emulation;
 using OCLSharpExamples.Kernels;
 using System;
 using System.Collections.Generic;

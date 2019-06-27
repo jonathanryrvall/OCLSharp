@@ -1,5 +1,7 @@
 ﻿using OCLSharp;
 using OCLSharp.Attributes;
+using OCLSharp.Emulation;
+using OCLSharp.OpenCL.DataTypes.ScalarDataTypes;
 using OCLSharp.OpenCL.Program;
 using System;
 using System.Collections.Generic;

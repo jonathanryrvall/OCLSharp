@@ -1,4 +1,5 @@
 ﻿using OCLSharp.OpenCL.DataTypes;
+using OCLSharp.OpenCL.DataTypes.VectorDataTypes;
 using System;
 using System.Collections.Generic;
 using System.Text;

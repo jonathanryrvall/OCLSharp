@@ -34,60 +34,121 @@
             Marks a memory pointer as read only
             </summary>
         </member>
+        <member name="T:OCLSharp.Attributes.ReadWriteAttribute">
+            <summary>
+            Marks a memory pointer as read and writable
+            </summary>
+        </member>
         <member name="T:OCLSharp.Attributes.WriteOnlyAttribute">
             <summary>
             Marks a memory pointer as write only
             </summary>
         </member>
-        <member name="T:OCLSharp.Emulator`1">
+        <member name="T:OCLSharp.Emulation.Emulator`1">
             <summary>
             Emulates C# code as if it was OpenCL
             Note that this is VERY inefficient and slow and only meant for debugging purposes
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.#ctor(System.Int32[],System.Int32[])">
+        <member name="M:OCLSharp.Emulation.Emulator`1.#ctor(System.Int32[],System.Int32[])">
             <summary>
             Create a new emulator
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.CalculateWorkGroupCount">
+        <member name="M:OCLSharp.Emulation.Emulator`1.CalculateWorkGroupCount">
             <summary>
             Calculate work group count in all dimensions
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.PadDimArray(System.Int32[])">
+        <member name="M:OCLSharp.Emulation.Emulator`1.PadDimArray(System.Int32[])">
             <summary>
             Add padding to dimension array and set empty elements to 1
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.Run(System.String,System.Object[])">
+        <member name="M:OCLSharp.Emulation.Emulator`1.Run(System.String,System.Object[])">
             <summary>
             Run kernel by name
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.RunWorkGroup(System.Int32[],System.String,`0,System.Object[])">
+        <member name="M:OCLSharp.Emulation.Emulator`1.RunWorkGroup(System.Int32[],System.String,`0,System.Object[])">
             <summary>
             Run a specific work group in a kernel on a program
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.RunWorkItem(OCLSharp.WorkItemArgs,System.String,System.Object[],`0)">
+        <member name="M:OCLSharp.Emulation.Emulator`1.RunWorkItem(OCLSharp.Emulation.WorkItemArgs,System.String,System.Object[],`0)">
             <summary>
             Start a work item
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.CombineArgs(OCLSharp.WorkItemArgs,System.Object[])">
+        <member name="M:OCLSharp.Emulation.Emulator`1.CombineArgs(OCLSharp.Emulation.WorkItemArgs,System.Object[])">
             <summary>
             Combine work items args with kernel args
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.GetWorkItemArgs(System.Int32[])">
+        <member name="M:OCLSharp.Emulation.Emulator`1.GetWorkItemArgs(System.Int32[])">
             <summary>
             Get work items arguments
             </summary>
         </member>
-        <member name="M:OCLSharp.Emulator`1.GetWorkGroupIDs">
+        <member name="M:OCLSharp.Emulation.Emulator`1.GetWorkGroupIDs">
             <summary>
             Get work group IDs
+            </summary>
+        </member>
+        <member name="T:OCLSharp.Emulation.WorkItemArgs">
+            <summary>
+            Arguments for work items, used only for emulation
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Emulation.WorkItemArgs.get_group_id(System.Int32)">
+            <summary>
+            Id of work group
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Emulation.WorkItemArgs.get_global_offset(System.UInt32)">
+            <summary>
+            Returns the offset values specified in global_work_offset argument to clEnqueueNDRangeKernel. Valid values of dimindx are 0 to get_work_dim() - 1. For other values, get_global_offset() returns 0.
+            For clEnqueueTask, this returns 0.
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Emulation.WorkItemArgs.get_num_groups(System.Int32)">
+            <summary>
+            Number of work groups
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Emulation.WorkItemArgs.get_work_dim(System.Int32)">
+            <summary>
+            Get how many dimensions are in use
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Emulation.WorkItemArgs.get_global_size(System.UInt32)">
+            <summary>
+            Get size of entire work area
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Emulation.WorkItemArgs.get_local_size(System.UInt32)">
+            <summary>
+            Get size of workgroup
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Emulation.WorkItemArgs.get_global_id(System.UInt32)">
+            <summary>
+            Get workitem id withing entire work area
+            </summary>
+        </member>
+        <member name="M:OCLSharp.Emulation.WorkItemArgs.get_local_id(System.UInt32)">
+            <summary>
+            Get workitem id within workgroup
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.ScalarDataTypes.half">
+            <summary>
+            Half struct, uses a 32 bit float for emulation purporses
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.ScalarDataTypes.size_t">
+            <summary>
+            size_t struct
             </summary>
         </member>
         <member name="T:OCLSharp.OpenCL.Program.OpenCLProgram">
@@ -113,12 +174,12 @@
             Initialize local memory dictionary
             </summary>
         </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.barrier(OCLSharp.WorkItemArgs,System.Int32)">
+        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.barrier(OCLSharp.Emulation.WorkItemArgs,System.Int32)">
             <summary>
             Barrier!
             </summary>
         </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.GetLocalMem``1(OCLSharp.WorkItemArgs,``0,System.String)">
+        <member name="M:OCLSharp.OpenCL.Program.OpenCLProgram.GetLocalMem``1(OCLSharp.Emulation.WorkItemArgs,``0,System.String)">
             <summary>
             Sync local memory between work items
             </summary>
@@ -132,66 +193,6 @@
             Please download the full method specification from here: https://www.khronos.org/registry/OpenCL/specs/2.2/pdf/OpenCL_C.pdf
             </summary>
             <typeparam name="T"></typeparam>
-            <summary>
-            Please download the full method specification from here: https://www.khronos.org/registry/OpenCL/specs/2.2/pdf/OpenCL_C.pdf
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.get_global_id(System.Int32)">
-            <summary>
-            Global work item ID value
-            </summary>
-            <param name="dimindx">The dimindx.</param>
-            <returns></returns>
-        </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.get_work_dim">
-            <summary>
-            Number of dimensions in use
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.{get; set;}(System.Int32)">
-            <summary>
-            Number of global work items
-            </summary>
-            <param name="dimindx">The dimindx.</param>
-            <returns></returns>
-        </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.get_local_id(System.Int32)">
-            <summary>
-            Local work item ID
-            </summary>
-            <param name="dimindx">The dimindx.</param>
-            <returns></returns>
-        </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.get_local_size(System.Int32)">
-            <summary>
-            Number of local work items
-            </summary>
-            <param name="dimindx">The dimindx.</param>
-            <returns></returns>
-        </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.get_num_groups(System.Int32)">
-            <summary>
-            Number of work groups
-            </summary>
-            <param name="dimindx">The dimindx.</param>
-            <returns></returns>
-        </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.get_group_id(System.Int32)">
-            <summary>
-            Work group ID
-            </summary>
-            <param name="dimindx">The dimindx.</param>
-            <returns></returns>
-        </member>
-        <member name="M:OCLSharp.OpenCL.Program.OpenCLFunctions.get_global_offset(System.Int32)">
-            <summary>
-            Returns the offset values specified in global_work_offset argument to clEnqueueNDRangeKernel. Valid values of dimindx are 0 to get_work_dim() - 1. For other values, get_global_offset() returns 0.
-            For clEnqueueTask, this returns 0.
-            </summary>
-            <param name="dimindx">The dimindx.</param>
-            <returns></returns>
         </member>
         <member name="T:OCLSharp.Translating.ClassFinder">
             <summary>
@@ -315,103 +316,6 @@
             Translates C# code to OpenCL
             </summary>
             <returns>OpenCL code</returns>
-        </member>
-        <member name="T:OCLSharp.Translator">
-            <summary>
-            Translator that translated C# to OpenCL
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.#ctor">
-            <summary>
-            Create an empty <see cref="T:OCLSharp.Translator"/>
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.#ctor(System.String)">
-            <summary>
-            Create a new <see cref="T:OCLSharp.Translator"/> from C# source code
-            </summary>
-            <param name="csCode">Code in C# language</param>
-        </member>
-        <member name="M:OCLSharp.Translator.Translate">
-            <summary>
-            Translates C# code to OpenCL
-            </summary>
-            <returns>OpenCL code</returns>
-        </member>
-        <member name="M:OCLSharp.Translator.IsRowComment(System.Int32,System.String)">
-            <summary>
-            Check if the code on this index is row comment or not
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.FindClasses(System.String)">
-            <summary>
-            Returns all classes in a code
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.FindConstantFields(System.String)">
-            <summary>
-            Returns all classes in a code
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.FindNonKernels(System.String)">
-            <summary>
-            Returns all classes in a code
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.FindKernels(System.String)">
-            <summary>
-            Returns all classes in a code
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.FindKernel(System.String,System.Int32)">
-            <summary>
-            Find class!
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.FindConstantField(System.String,System.Int32)">
-            <summary>
-            Find constant field
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.FindClass(System.String,System.Int32)">
-            <summary>
-            Find class!
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.GetLines(System.String)">
-            <summary>
-            Split code into lines
-            </summary>
-        </member>
-        <member name="M:OCLSharp.Translator.CommentSplit(System.String)">
-            <summary>
-            Split code into array based on comment start and end
-            </summary>
-        </member>
-        <member name="T:OCLSharp.WorkItemArgs">
-            <summary>
-            Arguments for work items, used only for emulation
-            </summary>
-        </member>
-        <member name="M:OCLSharp.WorkItemArgs.{get; set;}(System.Int32)">
-            <summary>
-            Get size of entire work area
-            </summary>
-        </member>
-        <member name="M:OCLSharp.WorkItemArgs.get_local_size(System.Int32)">
-            <summary>
-            Get size of workgroup
-            </summary>
-        </member>
-        <member name="M:OCLSharp.WorkItemArgs.get_global_id(System.Int32)">
-            <summary>
-            Get workitem id withing entire work area
-            </summary>
-        </member>
-        <member name="M:OCLSharp.WorkItemArgs.get_local_id(System.Int32)">
-            <summary>
-            Get workitem id within workgroup
-            </summary>
         </member>
     </members>
 </doc>

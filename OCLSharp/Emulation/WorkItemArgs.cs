@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OCLSharp
+namespace OCLSharp.Emulation
 {
     /// <summary>
     /// Arguments for work items, used only for emulation
@@ -84,33 +84,33 @@ namespace OCLSharp
         /// <summary>
         /// Get size of entire work area
         /// </summary>
-        public int get_global_size(int dim)
+        public size_t get_global_size(uint dim)
         {
-            return ndRange[dim];
+            return (uint)ndRange[dim];
         }
 
         /// <summary>
         /// Get size of workgroup
         /// </summary>
-        public int get_local_size(int dim)
+        public size_t get_local_size(uint dim)
         {
-            return workGroupSize[dim];
+            return (uint)workGroupSize[dim];
         }
 
         /// <summary>
         /// Get workitem id withing entire work area
         /// </summary>
-        public int get_global_id(int dim)
+        public size_t get_global_id(uint dim)
         {
-            return globalID[dim];
+            return (uint)globalID[dim];
         }
 
         /// <summary>
         /// Get workitem id within workgroup
         /// </summary>
-        public int get_local_id(int dim)
+        public size_t get_local_id(uint dim)
         {
-            return localID[dim];
+            return (uint)localID[dim];
         }
 
 

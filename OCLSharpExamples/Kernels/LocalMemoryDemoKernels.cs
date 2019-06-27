@@ -1,5 +1,7 @@
 ﻿using OCLSharp;
 using OCLSharp.Attributes;
+using OCLSharp.Emulation;
+using OCLSharp.OpenCL.DataTypes.ScalarDataTypes;
 using OCLSharp.OpenCL.Program;
 using System;
 using System.Collections.Generic;
@@ -23,16 +25,16 @@ namespace OCLSharpExamples.Kernels
                                          [Global] int[] data)
         {
             // Get workgroup size and local id
-            int workGroupSize = args.get_local_size(0);
-            int localID = args.get_local_id(0);
-            int globalID = args.get_global_id(0);
+            size_t workGroupSize = args.get_local_size(0);
+            size_t localID = args.get_local_id(0);
+            size_t globalID = args.get_global_id(0);
 
             
             int[] localMemory = GetLocalMem(args, new int[8], "testTag");
 
             localMemory[localID] = data[globalID];
 
-            int swapIndex = workGroupSize - 1 - localID;
+            size_t swapIndex = workGroupSize - 1 - localID;
 
 
             // Wait for all workitems to reach this point
