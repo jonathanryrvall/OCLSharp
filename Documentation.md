@@ -1,15 +1,13 @@
-# Documentation #
-
-## Kernel ##
+# Kernel #
 
 
-### C# ###
+## C# ##
 
 The kernel **must** be placed in a class inheriting from `OpenCLProgram`.
 
 The kernel **must** be marked with the `[Kernel]` attribute.
 
-The kernel **must**  `WorkItemArgs args` as the first argument.
+The kernel **must** have `WorkItemArgs args` as the first argument.
 
 
 
@@ -30,7 +28,7 @@ public class DemoKernels : OpenCLProgram
 }
 ~~~~
 
-### Translated to OpenCL ###
+## Translated to OpenCL ##
 ~~~~
 __kernel public void DemoKernel(__global int* data)
 {
@@ -42,37 +40,49 @@ __kernel public void DemoKernel(__global int* data)
 }
 ~~~~
 
-## Barriers ##
-
-Barrier in OpenCL:
-
-~~~~
-barrier(CLK_GLOBAL_MEM_FENCE);
-~~~~
+# Barriers #
 
 
-Barrier in C#:
-
+## C# ##
 ~~~~
 barrier(args, CLK_GLOBAL_MEM_FENCE);
 ~~~~
 
 
-## WorkItemArgs args ##
-
-### C# ###
+## Translated to OpenCL ##
 ~~~~
-args.get_global_id(0);
+barrier(CLK_GLOBAL_MEM_FENCE);
+~~~~
+
+
+
+# WorkItemArgs args #
+Every thread comes with a unique instance of WorkItemArgs, containing information of
+workitem id, workgroup id workgroup size etc.
+
+## C# ##
+~~~~
+args.get_group_id(0); 
+args.get_global_offset(0);
+args.get_num_groups(0);
+args.get_work_dim(0);
+args.get_global_size(0);
+args.get_local_size(1);
+args.get_global_id(2);
 args.get_local_id(1);
-args.get_group_id(0);
 ~~~~
 
 
-### Translated to OpenCL ###
+## Translated to OpenCL ##
 ~~~~
-get_global_id(0);
+get_group_id(0); 
+get_global_offset(0);
+get_num_groups(0);
+get_work_dim(0);
+get_global_size(0);
+get_local_size(1);
+get_global_id(2);
 get_local_id(1);
-get_group_id(0);
 ~~~~
 
 
