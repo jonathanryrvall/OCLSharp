@@ -22,6 +22,7 @@ namespace OCLSharp.OpenCL.Program
         protected T acosh<T>(T x) where T : struct
         {
             return x;
+       //return Math.Acosh
         }
 
         protected T acospi<T>(T x) where T : struct

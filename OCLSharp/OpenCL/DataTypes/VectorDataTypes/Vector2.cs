@@ -1,68 +1,69 @@
-﻿using System;
+﻿using OCLSharp.OpenCL.DataTypes.ScalarDataTypes;
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace OCLSharp.OpenCL.DataTypes.VectorDataTypes
 {
-    //public struct int2
-    //{
-    //    public int x, y;
-
-
-    //    public static implicit operator int2((uint, uint) d)
-    //    {
-    //        return new int2();
-    //    }
-    //}
-    //public struct int3
-    //{
-    //    public int x, y;
-
-
-    //    public static implicit operator int2((uint, uint) d)
-    //    {
-    //        return new int2();
-    //    }
-    //}
-    //public class int2
-    //{
-    //    public int x, y;
-
-
-    //}
-
-    public class int2 : Vector2<int> { }
-    public class float2 : Vector2<int> { }
-
-    public class Vector2<T>
+    /// <summary>
+    /// Generic 3-component vector
+    /// </summary>
+    public class Vector2<T> : Vector<T>
     {
-        public dynamic x, y;
-
-        public static Vector2<T> operator +(Vector2<T> a, Vector2<T> b)
-        {
-            return new Vector2<T>()
-            {
-                x = a.x + b.x,
-                y = a.y + b.y
-            };
-        }
-
+        public T x, y;
     }
 
-    //public class Vector2<T>
-    //{
-    //    public T x, y;
+    /// <summary>
+    /// A 2-Component signed char vector
+    /// </summary>
+    public class char2 : Vector2<sbyte> { }
 
-    //    public static Vector2<T> operator +(Vector2<T> a, Vector2<T> b)
-    //    {
-    //        return new Vector2<T>()
-    //        {
-    //            x = (dynamic)a.x + (dynamic)b.x,
-    //            y = (dynamic)a.y + (dynamic)b.y
-    //        };
-    //    }
+    /// <summary>
+    /// A 2-Component unsigned char vector
+    /// </summary>
+    public class uchar2 : Vector2<byte> { }
 
-    //}
+    /// <summary>
+    /// A 2-Component signed 16 bit integer
+    /// </summary>
+    public class short2 : Vector2<short> { }
+
+    /// <summary>
+    /// A 2-Component unsigned 16 bit integer
+    /// </summary>
+    public class ushort2 : Vector2<ushort> { }
+
+    /// <summary>
+    /// A 2-Component signed 32 bit integer
+    /// </summary>
+    public class int2 : Vector2<int> { }
+
+    /// <summary>
+    /// A 2-Component unsigned 32 bit integer
+    /// </summary>
+    public class uint2 : Vector2<uint> { }
+
+    /// <summary>
+    /// A 2-Component signed 64 bit integer
+    /// </summary>
+    public class long2 : Vector2<long> { }
+
+    /// <summary>
+    /// A 2-Component unsigned 64 bit integer
+    /// </summary>
+    public class ulong2 : Vector2<ulong> { }
+
+    /// <summary>
+    /// A 2-Component unsigned 32 bit floating point
+    /// </summary>
+    public class float2 : Vector2<float> { }
+
+    /// <summary>
+    /// A 2-Component unsigned 64 bit floating point 
+    /// </summary>
+    public class double2 : Vector2<double> { }
+
 
 
 }

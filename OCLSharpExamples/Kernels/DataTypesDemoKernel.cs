@@ -26,12 +26,32 @@ namespace OCLSharpExamples.Kernels
         {
             size_t globalID = args.get_global_id(0);
 
-            int2 i2 = new int2();
+            float3 threeComponentsA = new float3();
+            threeComponentsA.x = 5;
+            threeComponentsA.y = 6;
+            threeComponentsA.z = 7;
 
-            i2.x = 1;
-            i2.y = 1;
+            float3 threeComponentsB = new float3();
+            threeComponentsB.x = 30.4f;
+            threeComponentsB.y = 40.3f;
+            threeComponentsB.z = 50.2f;
 
-            data[globalID] = i2.x + i2.y;
+            float3 threeComponentsC = threeComponentsA + threeComponentsB;
+
+            //int2 i2 = new int2();
+            //int2 i2a = new int2();
+            //i2a.x = 5;
+            //i2a.y = 7;
+
+
+
+
+            //i2.x = 1;
+            //i2.y = 1;
+            //int2 i2c = i2 + i2a;
+
+
+            data[globalID] = 0;
 
 
         }

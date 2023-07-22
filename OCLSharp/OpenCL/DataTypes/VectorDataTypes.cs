@@ -84,13 +84,7 @@ namespace OCLSharp.OpenCL.DataTypes
         }
     }
 
-    public struct long2
-    {
-        public static implicit operator long2((long, long) d)
-        {
-            return new long2();
-        }
-    }
+   
 
     public struct long3
     {
@@ -124,13 +118,6 @@ namespace OCLSharp.OpenCL.DataTypes
         }
     }
 
-    public struct ulong2
-    {
-        public static implicit operator ulong2((ulong, ulong) d)
-        {
-            return new ulong2();
-        }
-    }
 
     public struct ulong3
     {
@@ -204,13 +191,13 @@ namespace OCLSharp.OpenCL.DataTypes
         }
     }
 
-    public struct double2
-    {
-        public static implicit operator double2((double, double) d)
-        {
-            return new double2();
-        }
-    }
+    //public struct double2
+    //{
+    //    public static implicit operator double2((double, double) d)
+    //    {
+    //        return new double2();
+    //    }
+    //}
 
     public struct double3
     {

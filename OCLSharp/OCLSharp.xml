@@ -151,6 +151,132 @@
             size_t struct
             </summary>
         </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector`1">
+            <summary>
+            Generic vector base class
+            </summary>
+            <typeparam name="T">Datatype contained in vector</typeparam>
+        </member>
+        <member name="M:OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector`1.op_Addition(OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector{`0},OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector{`0})">
+            <summary>
+            + Operator
+            </summary>
+        </member>
+        <member name="M:OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector`1.op_Subtraction(OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector{`0},OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector{`0})">
+            <summary>
+            - Operator
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector2`1">
+            <summary>
+            Generic 3-component vector
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.char2">
+            <summary>
+            A 2-Component signed char vector
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.uchar2">
+            <summary>
+            A 2-Component unsigned char vector
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.short2">
+            <summary>
+            A 2-Component signed 16 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.ushort2">
+            <summary>
+            A 2-Component unsigned 16 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.int2">
+            <summary>
+            A 2-Component signed 32 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.uint2">
+            <summary>
+            A 2-Component unsigned 32 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.long2">
+            <summary>
+            A 2-Component signed 64 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.ulong2">
+            <summary>
+            A 2-Component unsigned 64 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.float2">
+            <summary>
+            A 2-Component unsigned 32 bit floating point
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.double2">
+            <summary>
+            A 2-Component unsigned 64 bit floating point 
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.Vector3`1">
+            <summary>
+            Generic 3-component vector
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.char3">
+            <summary>
+            A 3-Component signed char vector
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.uchar3">
+            <summary>
+            A 3-Component unsigned char vector
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.short3">
+            <summary>
+            A 3-Component signed 16 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.ushort3">
+            <summary>
+            A 3-Component unsigned 16 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.int3">
+            <summary>
+            A 3-Component signed 32 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.uint3">
+            <summary>
+            A 3-Component unsigned 32 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.long3">
+            <summary>
+            A 3-Component signed 64 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.ulong3">
+            <summary>
+            A 3-Component unsigned 64 bit integer
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.float3">
+            <summary>
+            A 3-Component unsigned 32 bit floating point
+            </summary>
+        </member>
+        <member name="T:OCLSharp.OpenCL.DataTypes.VectorDataTypes.double3">
+            <summary>
+            A 3-Component unsigned 64 bit floating point 
+            </summary>
+        </member>
         <member name="T:OCLSharp.OpenCL.Program.OpenCLProgram">
             <summary>
             OpenCL program
